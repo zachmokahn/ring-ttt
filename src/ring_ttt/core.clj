@@ -1,4 +1,6 @@
-(ns ring-ttt.core)
+(ns ring-ttt.core
+  (:require [ring-ttt.routes :refer :all]))
 
 (defn handler [request]
-  {:body "Hello World"})
+  (let [body (controller request)]
+  (body request)))
