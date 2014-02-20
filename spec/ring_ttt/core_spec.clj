@@ -6,6 +6,6 @@
   (let [request {:request-method :delegates-to-router
                  :uri "/null-pointer-because-fake"}]
   (context "#handler"
-    (it "controller=>ring-ttt.routes/controller"
+    (it "controller=>ring-ttt.router/controller"
       (should-throw java.lang.NullPointerException
                     (handler request))))))
