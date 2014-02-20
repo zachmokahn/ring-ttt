@@ -12,7 +12,7 @@
   (get request :uri))
 
 (defn get-body [routes uri]
-  (get routes uri))
+  (or (get routes uri) page-not-found))
 
 (defn controller [request]
   (let [method (get-http-method request)

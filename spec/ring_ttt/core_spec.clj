@@ -3,9 +3,6 @@
             [ring-ttt.core :refer :all]))
 
 (describe "SPEC: ring-ttt.core"
-  (let [request {:request-method :delegates-to-router
-                 :uri "/null-pointer-because-fake"}]
-  (context "#handler"
-    (it "controller=>ring-ttt.router/controller"
-      (should-throw java.lang.NullPointerException
-                    (handler request))))))
+  (let [request {:request-method :test, :uri "/test"}]
+    (it "#handler=>ring-ttt.router/controller"
+      (should= 404 (:status (handler request))))))
