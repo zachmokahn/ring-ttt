@@ -5,9 +5,9 @@
 (describe "Controller -> Home Spec:"
   (describe "#home?"
     (it "true if meets criteria for home controller"
-      (should= true (home? [])))
+      (should= true (home? {:uri "/"})))
     (it "false if doesn't meet home controller criteria"
-      (should= false (home? ["" "test" "uri"]))))
+      (should= false (home? {:uri "/test/uri"}))))
 
   (describe "#home-page"
     (it "loads 'index.html' when called"
@@ -19,5 +19,4 @@
     (describe "HTTP request -> GET"
       (it "gets the home page"
         (with-redefs [ring-ttt.controllers.controller/get? (fn [_] true)]
-        (should= home-page
-                 (home-controller {:test "data"})))))))
+        (should= home-page (home-controller {:test "data"})))))))

@@ -1,11 +1,13 @@
 (ns ring-ttt.router
-  (:use clojure.string)
-  (:require [ring-ttt.controllers.home-controller :refer :all]
+  (:require [ring-ttt.controllers.controller :refer :all]
+            [ring-ttt.controllers.home-controller :refer :all]
+            [ring-ttt.controllers.game-controller :refer :all]
             [ring-ttt.controllers.invalid-controller :refer :all]))
 
 (defn router [request]
-  (let [uri        (:uri request)
-        controller (split uri #"/")]
     (cond
-      (home? controller) (home-controller request)
-    :else (invalid-controller request))))
+      (home? request) (home-controller request)
+      (game? request) (game-controller request)
+    :else (invalid-controller request)))
+
+(+ (- 2 1) 1)
