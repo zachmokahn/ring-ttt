@@ -8,7 +8,7 @@
 (defn parse-game-difficulty [request]
   (get-in request [:params "gameDifficulty"]))
 
-(defn parse-new-game-to-json [request]
+(defn parse-new-game-post [request]
   {:board       new-board
    :mode        (parse-game-mode request)
    :difficulty  (parse-game-difficulty request)})
@@ -19,7 +19,7 @@
   (= "game" (first (rest path)))))
 
 (defn new-game [request]
-  (parse-new-game-to-json request))
+  (parse-new-game-post request))
 
 (defn game-post-controller [request]
   (let [uri  (get-uri request)
