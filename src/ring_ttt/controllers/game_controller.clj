@@ -1,5 +1,17 @@
 (ns ring-ttt.controllers.game-controller
-  (:require [ring-ttt.controllers.controller :refer :all]))
+  (:require [ring-ttt.controllers.controller :refer :all]
+            [ttt.board :refer :all]))
+
+(defn parse-game-mode [request]
+  (get-in request [:params "gameMode"]))
+
+(defn parse-game-difficulty [request]
+  (get-in request [:params "gameDifficulty"]))
+
+(defn parse-new-game-to-json [request]
+  {:board       new-board
+   :mode        (parse-game-mode request)
+   :difficulty  (parse-game-difficulty request)})
 
 (defn game? [request]
   (let [uri  (get-uri request)
@@ -7,7 +19,7 @@
   (= "game" (first (rest path)))))
 
 (defn new-game [request]
-  ("TODO"))
+  (parse-new-game-to-json request))
 
 (defn game-post-controller [request]
   (let [uri  (get-uri request)

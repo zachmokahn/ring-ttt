@@ -10,6 +10,13 @@
       (respond-with "test.html"))))
 
   (describe "HTTP Request Methods"
+
     (describe "#get?"
       (it "determines if it is a GET request"
-        (should= true (get? {:request-method :get}))))))
+        (should= true (get? {:request-method :get}))
+        (should= false (get? {:request-method :test}))))
+
+    (describe "#post?"
+      (it "determines if it is a POST request"
+        (should= true (post? {:request-method :post}))
+        (should= false (post? {:request-method :test}))))))
