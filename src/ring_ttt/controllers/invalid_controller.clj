@@ -1,7 +1,8 @@
 (ns ring-ttt.controllers.invalid-controller
-  (:require [ring-ttt.controllers.controller :refer :all]))
+  (:require [ring-ttt.constants :refer [INVALID]]
+            [ring-ttt.controllers.controller :refer :all]))
 
 (defn page-not-found [_]
-  (respond-with "404.html"))
+  (respond-with INVALID))
 
 (defn invalid-controller [_] page-not-found)

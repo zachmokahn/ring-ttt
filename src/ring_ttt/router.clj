@@ -9,5 +9,3 @@
       (home? request) (home-controller request)
       (game? request) (game-controller request)
     :else (invalid-controller request)))
-
-(+ (- 2 1) 1)

@@ -1,4 +1,5 @@
 (ns ring-ttt.controllers.controller
+  (:require [ring-ttt.constants :refer [ROOT]])
   (:use [clojure.string]
         [ring.util.response]))
 
@@ -9,7 +10,7 @@
   (:uri request))
 
 (defn respond-with [page]
-  (file-response page {:root "public"}))
+  (file-response page {:root ROOT}))
 
 (defn get? [response]
   (= :get (:request-method response)))
