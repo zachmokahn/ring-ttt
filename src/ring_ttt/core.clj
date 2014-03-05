@@ -1,8 +1,12 @@
 (ns ring-ttt.core
   (:require [ring-ttt.router :refer [router]])
-  (:use [ring.middleware.params]))
+  (:use [ring.middleware.params]
+        [ring.middleware.file]))
 
 (defn handler [request]
   (let [body (router request)] (body request)))
 
-(def app (wrap-params handler))
+(def app
+  (-> handler
+  (wrap-file "public")
+  (wrap-params)))
