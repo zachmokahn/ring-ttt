@@ -11,5 +11,5 @@
                                   [ring-mock "0.1.5"]]}}
   :plugins [[speclj "3.0.1"]
             [lein-ring "0.8.10"]]
-  :ring { :handler ring-ttt.core/handler }
+  :ring { :handler ring-ttt.core/app }
   :test-paths ["spec"])
