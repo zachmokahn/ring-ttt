@@ -7,7 +7,8 @@
                  [ttt/ttt "1.0.0"]
                  [ring/ring-core "1.2.1"]
                  [ring/ring-jetty-adapter "1.2.1"]]
-  :profiles {:dev {:dependencies [[speclj "3.0.1"]]}}
+  :profiles {:dev {:dependencies [[speclj "3.0.1"]
+                                  [ring-mock "0.1.5"]]}}
   :plugins [[speclj "3.0.1"]
             [lein-ring "0.8.10"]]
   :ring { :handler ring-ttt.core/handler }
