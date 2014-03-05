@@ -1,7 +1,7 @@
 (ns ring-ttt.controllers.controller
   (:require [ring-ttt.constants :refer [ROOT]])
-  (:use [clojure.string]
-        [ring.util.response]))
+  (:use     [clojure.string]
+            [ring.util.response]))
 
 (defn split-uri [uri]
   (split uri #"/"))

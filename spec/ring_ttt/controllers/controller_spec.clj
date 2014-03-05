@@ -10,7 +10,6 @@
       (respond-with "test.html"))))
 
   (describe "HTTP Request Methods"
-
     (describe "#get?"
       (it "determines if it is a GET request"
         (should= true (get? {:request-method :get}))
