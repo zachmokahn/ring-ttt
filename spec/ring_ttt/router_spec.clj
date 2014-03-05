@@ -1,12 +1,21 @@
 (ns ring-ttt.router-spec
-  (:require [speclj.core :refer :all]
+  (:require [ring-ttt.spec-helper :refer :all]
+            [speclj.core :refer :all]
             [ring-ttt.router :refer :all]))
 
+(def _request _new-game-player2-pvc-hard-post-request)
+
 (describe "Router Spec:"
-  (let [test-request { :uri "/test/uri" }]
     (describe "#router"
-      (it "obtains and parses the URI properly"
+      (it "-> propper controller if route exists"
+      (with-redefs [ring-ttt.controllers.home-controller/home?
+                    (fn [_] true)]
+      (should-invoke  ring-ttt.controllers.home-controller/home-controller
+                        {:with [_test-request]}
+                      (router _test-request))))
+
+      (it "-> invalid-controller if route doesn't exist"
         (should-invoke
-          ring-ttt.controllers.home-controller/home?
-            {:with [["" "test" "uri"]]}
-          (router test-request))))))
+          ring-ttt.controllers.invalid-controller/invalid-controller
+            {:with [(_test-request)]}
+             (router (_test-request))))))
