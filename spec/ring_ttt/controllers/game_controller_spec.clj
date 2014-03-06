@@ -3,8 +3,6 @@
             [speclj.core :refer :all]
             [ring-ttt.controllers.game-controller :refer :all]))
 
-
-
 (describe "Controller -> Game Spec:"
   (describe "#parse-params"
     (it "returns value of provided parameters and request"

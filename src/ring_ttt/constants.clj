@@ -6,7 +6,7 @@
 (def MODE       "gameMode")
 (def DIFFICULTY "gameDifficulty")
 (def HARD       "hard")
-(def BOARD      "gameBoard")
+(def BOARD      "gameBoard[]")
 (def TURN       "gameTurn")
 (def MOVE       "gameMove")
 (def PLAYER1    "first-player")

@@ -17,25 +17,25 @@
   <body>
       <script type="text/javascript" src="static/js/main.js"></script>
     <div id="options">
-      <div id="mode" class="option">
+      <div data-id="mode" class="option">
         <label> Mode: </label>
-        <select id="gameMode">
+        <select data-id="gameMode">
           <option value="singlePlayer">Single Player</option>
           <option value="twoPlayer">Two Player</option>
         </select>
       </div>
       <div id="move" class="option">
         <label> First Move: </label>
-        <select id="firstMove">
-          <option value="player1">Player 1</option>
-          <option value="player2">Player 2</option>
+        <select data-id="gameTurn">
+          <option value="first-player">Player 1</option>
+          <option value="second-player">Player 2</option>
         </select>
       </div>
-      <div id="piece" class="option">
-        <label> Player Piece: </label>
-        <select id="playerPiece">
-          <option value="X">X</option>
-          <option value="O">O</option>
+      <div id="difficulty" class="option">
+        <label> Difficulty: </label>
+        <select data-id="gameDifficulty">
+          <option value="hard">Hard</option>
+          <option value="easy">Easy</option>
         </select>
       </div>
       <div data-id="newGame" class="option">
@@ -44,19 +44,19 @@
     </div>
     <div id="game">
       <div class="row">
-        <div class="boardPiece" id="space0"></div>
-        <div class="boardPiece" id="space1"></div>
-        <div class="boardPiece" id="space2"></div>
+        <div class="boardPiece" data-index-id="0"></div>
+        <div class="boardPiece" data-index-id="1"></div>
+        <div class="boardPiece" data-index-id="2"></div>
       </div>
       <div class="row">
-        <div class="boardPiece" id="space3"></div>
-        <div class="boardPiece" id="space4"></div>
-        <div class="boardPiece" id="space5"></div>
+        <div class="boardPiece" data-index-id="3"></div>
+        <div class="boardPiece" data-index-id="4"></div>
+        <div class="boardPiece" data-index-id="5"></div>
       </div>
       <div class="row">
-        <div class="boardPiece" id="space6"></div>
-        <div class="boardPiece" id="space7"></div>
-        <div class="boardPiece" id="space8"></div>
+        <div class="boardPiece" data-index-id="6"></div>
+        <div class="boardPiece" data-index-id="7"></div>
+        <div class="boardPiece" data-index-id="8"></div>
       </div>
     </div>
   </body>

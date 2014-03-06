@@ -49,7 +49,7 @@
 (defn take-turn [turn board index mode]
   (if (= :computer (turn (player-type mode)))
         (move board (best-move board turn) turn)
-        (move board (read-string    index) turn)))
+        (move board (read-string index) turn)))
 
 (defn move-game [game-parameters]
   (let [board     (:board game-parameters)
@@ -58,6 +58,7 @@
         index     (:move  game-parameters)
         opponent  (change-turn turn)
         next-board (take-turn turn board index mode)]
-        (if (= :computer (opponent (player-type mode)))
+        (if (and (= :computer (opponent (player-type mode)))
+                 (= false (game-over? next-board)))
           (return-data (take-turn opponent next-board "_" mode) turn)
           (return-data next-board opponent))))
