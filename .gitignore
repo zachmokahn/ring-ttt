@@ -1,5 +1,5 @@
 /target
-/lib
+/lib/js
 /classes
 /checkouts
 pom.xml
@@ -10,3 +10,6 @@ pom.xml
 .lein-plugins
 .lein-repl-history
 .nrepl-port
+.grunt
+node_modules
+_SpecRunner.html

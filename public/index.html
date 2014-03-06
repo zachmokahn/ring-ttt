@@ -1,2 +1,63 @@
-<h1> This is a sample Index Page </h1>
-<p> I really need to make this thing a better.... thing, <br>with real HTML and magic</p>
+<!DOCTYPE html>
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title></title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+      <link rel="stylesheet" href="static/css/myStyles.css">
+      <link rel="stylesheet" href="static/css/normalize.css">
+      <link rel="stylesheet" href="static/css/main.css">
+      <script type="text/javascript" src="static/vendor/jquery.min.js"></script>
+      <script type="text/javascript" src="static/js/board.js"></script>
+      <script type="text/javascript" src="static/js/service.js"></script>
+  </head>
+  <body>
+      <script type="text/javascript" src="static/js/main.js"></script>
+    <div id="options">
+      <div id="mode" class="option">
+        <label> Mode: </label>
+        <select id="gameMode">
+          <option value="singlePlayer">Single Player</option>
+          <option value="twoPlayer">Two Player</option>
+        </select>
+      </div>
+      <div id="move" class="option">
+        <label> First Move: </label>
+        <select id="firstMove">
+          <option value="player1">Player 1</option>
+          <option value="player2">Player 2</option>
+        </select>
+      </div>
+      <div id="piece" class="option">
+        <label> Player Piece: </label>
+        <select id="playerPiece">
+          <option value="X">X</option>
+          <option value="O">O</option>
+        </select>
+      </div>
+      <div data-id="newGame" class="option">
+        <button type='button' id='newGame'>New Game</button>
+      </div>
+    </div>
+    <div id="game">
+      <div class="row">
+        <div class="boardPiece" id="space0"></div>
+        <div class="boardPiece" id="space1"></div>
+        <div class="boardPiece" id="space2"></div>
+      </div>
+      <div class="row">
+        <div class="boardPiece" id="space3"></div>
+        <div class="boardPiece" id="space4"></div>
+        <div class="boardPiece" id="space5"></div>
+      </div>
+      <div class="row">
+        <div class="boardPiece" id="space6"></div>
+        <div class="boardPiece" id="space7"></div>
+        <div class="boardPiece" id="space8"></div>
+      </div>
+    </div>
+  </body>
+</html>
