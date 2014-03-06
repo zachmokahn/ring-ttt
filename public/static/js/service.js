@@ -13,12 +13,7 @@
         type: "POST",
         data: data,
         success: callback,
-        dataType: 'json',
-        statusCode: {
-          404: function() {
-            return alert("Ummm.... What?");
-          }
-        }
+        dataType: 'json'
       });
     }
   };

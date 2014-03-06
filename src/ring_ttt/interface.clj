@@ -21,14 +21,11 @@
 (defn game-active-return [game-data]
   (assoc game-data :game-over false))
 
-(def game-modes
-  { :pvc {:player1 :player
-          :player2 :computer}
-    :pvp {:player1 :player
-          :player2 :player}})
-
-(defn player-type [mode]
+(defn get-players [mode]
   (mode game-modes))
+
+(defn computer? [player mode]
+  (= :computer (player (get-players mode))))
 
 (defn game-evaluation [data]
   (if (game-over? (:board data))
@@ -39,26 +36,32 @@
   (let [board (:board game-parameters)
         turn  (:turn  game-parameters)
         mode  (:mode  game-parameters)]
-    (if (= :computer (turn (player-type mode)))
-          (play-game game-parameters)
-          (return-data board turn))))
+    (if (computer? turn mode)
+      (play-game game-parameters)
+      (return-data board turn))))
+
+(defn computer-move [board turn difficulty]
+  (if (= difficulty :hard)
+    (move board (best-move board turn) turn)
+    (move board (random-move board turn) turn)))
+
+(defn take-turn [turn board index mode difficulty]
+  (if (computer? turn mode)
+    (computer-move board turn difficulty)
+    (move board (read-string index) turn)))
+
+(defn move-game [game-parameters]
+  (let [board       (:board       game-parameters)
+        mode        (:mode        game-parameters)
+        turn        (:turn        game-parameters)
+        index       (:move        game-parameters)
+        difficulty  (:difficulty  game-parameters)
+        opponent  (change-turn turn)
+        next-board (take-turn turn board index mode difficulty)]
+        (if (and (computer? opponent mode)
+                 (not (game-over? next-board)))
+          (return-data (computer-move next-board opponent difficulty) turn)
+          (return-data next-board opponent))))
 
 (defn play-game [game-parameters]
   (game-evaluation (move-game game-parameters)))
-
-(defn take-turn [turn board index mode]
-  (if (= :computer (turn (player-type mode)))
-        (move board (best-move board turn) turn)
-        (move board (read-string index) turn)))
-
-(defn move-game [game-parameters]
-  (let [board     (:board game-parameters)
-        mode      (:mode  game-parameters)
-        turn      (:turn  game-parameters)
-        index     (:move  game-parameters)
-        opponent  (change-turn turn)
-        next-board (take-turn turn board index mode)]
-        (if (and (= :computer (opponent (player-type mode)))
-                 (= false (game-over? next-board)))
-          (return-data (take-turn opponent next-board "_" mode) turn)
-          (return-data next-board opponent))))

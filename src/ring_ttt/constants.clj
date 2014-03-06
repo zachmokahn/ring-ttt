@@ -16,3 +16,9 @@
 (def INDEX      "index.html")
 (def INVALID    "404.html")
 (def PVC        "singlePlayer")
+
+(def game-modes
+  { :pvc {:player1 :player
+          :player2 :computer}
+    :pvp {:player1 :player
+          :player2 :player}})

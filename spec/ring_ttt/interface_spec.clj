@@ -29,14 +29,14 @@
       (should= _fake-return-data
                (return-data "board" "turn")))))
 
-  (describe "#player-type"
+  (describe "#get-players"
     (it "returns propper players types for ':pvp'"
-      (should= :player (:player1 (player-type :pvp)))
-      (should= :player (:player2 (player-type :pvp))))
+      (should= :player (:player1 (get-players :pvp)))
+      (should= :player (:player2 (get-players :pvp))))
 
     (it "returns propper players types for ':pvc'"
-      (should= :player   (:player1 (player-type :pvc)))
-      (should= :computer (:player2 (player-type :pvc)))))
+      (should= :player   (:player1 (get-players :pvc)))
+      (should= :computer (:player2 (get-players :pvc)))))
 
   (describe "#game-evaluation"
     (it "returns game over if game is over?"

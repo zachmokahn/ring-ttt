@@ -29,14 +29,8 @@
       (should-invoke ring-ttt.interface/play-game {:with [_move-game-player1]}
                      (make-move _test-request)))))
 
-  (describe "#game-post-controller"
-    (it "posts a new game"
-      (should= new-game (game-post-controller (_new-game-player1-pvc-hard-post-request))))
-    (it "posts a move"
-      (should= make-move (game-post-controller (_move-game-player1)))))
-
   (describe "#game-controller"
-    (it "delegates HTTP:POST -> game-post-controller"
-      (with-redefs [ring-ttt.controllers.controller/post? (fn [_] true)]
-        (should-invoke game-post-controller {}
-        (game-controller (_new-game-player2-pvc-hard-post-request)))))))
+    (it "posts a new game"
+      (should= new-game (game-controller (_new-game-player1-pvc-hard-post-request))))
+    (it "posts a move"
+      (should= make-move (game-controller (_move-game-player1))))))

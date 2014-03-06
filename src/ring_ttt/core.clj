@@ -1,7 +1,6 @@
 (ns ring-ttt.core
   (:require [ring-ttt.router :refer [router]])
   (:use [ring.middleware.params]
-        [ring.middleware.logger]
         [ring.middleware.file]
         [ring.util.response]
         [ring.middleware.json]))
@@ -13,6 +12,5 @@
 (def app
   (-> handler
   (wrap-json-response)
-  (wrap-with-logger)
   (wrap-params)
   (wrap-file "public")))

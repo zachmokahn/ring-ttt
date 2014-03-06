@@ -2,6 +2,7 @@ TTT = window.TTT = {}
 
 class TTT.Board
   constructor: ->
+    @spaces = $(".boardPiece")
     @view = new TTT.BoardView
   init: ->
     @bindNewGame()
@@ -9,16 +10,18 @@ class TTT.Board
   bindNewGame: ->
     $("[data-id='newGame']").on "click", =>
       @view.reset()
-      @updateGameData()
+      @assignGameRules()
       @startNewGame()
 
   startNewGame: =>
     TTT.Service.postNewGame @gameRules, (newGame) =>
-      console.log(newGame)
-      @view.sync(newGame)
-      @updateGameData(newGame["board"])
-      @assignTurn(newGame)
-      @bindGameBoard()
+      @updateGame(newGame)
+    @bindGameBoard()
+
+  updateGame: (gameData) ->
+    @updateBoard(gameData["board"])
+    @assignTurn(gameData["turn"])
+    @view.sync(gameData)
 
   getWinner: (results) ->
     if (results.winner == "draw")
@@ -26,32 +29,31 @@ class TTT.Board
     else
       alert("The winner is #{results.winner}, congrats!")
 
-
   bindGameBoard : ->
-    $(".boardPiece").on "click", (event) =>
-      $(".boardPiece").unbind()
+    @spaces.not(".cross, .circle").on "click", (event) =>
+      @spaces.unbind()
       index = $(event.target).data("index-id")
       TTT.Service.postMove @gameRules, index, (response) =>
-        @updateBoard(response["board"])
-        @assignTurn(response)
-        @view.sync(response)
-        if response["game-over"]
-          @getWinner(response)
-        else
-          @bindGameBoard()
+        @updateGame(response)
+        @checkGameStatus(response)
+
+  checkGameStatus: (gameData) ->
+    if gameData["game-over"]
+      @getWinner(gameData)
+    else
+      @bindGameBoard()
 
   updateBoard : (board) ->
     @gameRules.gameBoard = board
 
-  assignTurn: (newGame) ->
-    if newGame["turn"] == "player1"
+  assignTurn: (turn) ->
+    if turn == "player1"
       @gameRules.gameTurn = "first-player"
     else
       @gameRules.gameTurn = "second-player"
 
-  updateGameData: (board) =>
+  assignGameRules: =>
     @gameRules = {
-      gameBoard: board
       gameMode: $("[data-id='gameMode']").val()
       gameTurn: $("[data-id='gameTurn']").val()
       gameDifficulty: $("[data-id='gameDifficulty']").val()
@@ -78,11 +80,14 @@ class TTT.BoardView
       @_applyClass("circle", position)
 
   _applyClass: (marker, position) ->
-    $("[data-index-id='#{position}']").addClass(marker)
+    @space(position).addClass(marker)
 
   removeClass: (position) ->
-    $("[data-index-id='#{position}']").removeClass("circle")
-    $("[data-index-id='#{position}']").removeClass("cross")
+    @space(position).removeClass("circle")
+    @space(position).removeClass("cross")
+
+  space: (position) ->
+    $("[data-index-id='#{position}'")
 
 window.TTT.Board = TTT.Board
 window.TTT.BoardView = TTT.BoardView

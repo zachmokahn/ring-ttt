@@ -10,23 +10,23 @@
 (defn convert-mode [mode]
   (if (= mode PVC) :pvc :pvp))
 
-(defn parse-game-mode [request]
-  (convert-mode (parse-params MODE request)))
-
 (defn convert-difficulty [difficulty]
   (if (= difficulty HARD) :hard :easy))
-
-(defn parse-game-difficulty [request]
-  (convert-difficulty (parse-params DIFFICULTY request)))
-
-(defn parse-game-board [request]
-  (parse-params BOARD request))
 
 (defn convert-turn [turn]
   (if (= turn PLAYER1) :player1 :player2))
 
+(defn parse-game-mode [request]
+  (convert-mode (parse-params MODE request)))
+
+(defn parse-game-difficulty [request]
+  (convert-difficulty (parse-params DIFFICULTY request)))
+
 (defn parse-game-turn [request]
   (convert-turn (parse-params TURN request)))
+
+(defn parse-game-board [request]
+  (parse-params BOARD request))
 
 (defn parse-game-move [request]
   (parse-params MOVE request))
@@ -50,14 +50,11 @@
 (defn make-move [request]
   (play-game (parse-make-move-params request)))
 
-(defn game-post-controller [request]
+(defn game-controller [request]
   (let [uri  (get-uri request)
         path (split-uri uri)]
     (cond (= NEW-GAME  (last path)) new-game
           (= MAKE-MOVE (last path)) make-move)))
-
-(defn game-controller [request]
-  (if (post? request) (game-post-controller request)))
 
 (defn game? [request]
   (let [uri  (get-uri request)

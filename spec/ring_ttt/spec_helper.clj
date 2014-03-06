@@ -33,7 +33,7 @@
 
 (defn _move-game-player1 []
   (request :post "/game/make-move"
-    { "gameBoard"      _empty-board
+    { "gameBoard[]"      _empty-board
       "gameTurn"       "first-player"
       "gameMove"       4
       "gameMode"       "twoPlayer"
@@ -41,7 +41,7 @@
 
 (defn _move-game-player2 []
   (request :post "/game/make-move"
-    { "gameBoard"      _empty-board
+    { "gameBoard[]"      _empty-board
       "gameTurn"       "second-player"
       "gameMove"       4
       "gameMode"       "twoPlayer"
@@ -49,7 +49,7 @@
 
 (defn _move-game-player1-pvc []
   (request :post "/game/make-move"
-    { "gameBoard"      _empty-board
+    { "gameBoard[]"      _empty-board
       "gameTurn"       "first-player"
       "gameMove"       3
       "gameMode"       "singlePlayer"
@@ -57,7 +57,7 @@
 
 (defn _move-game-player2-pvc []
   (request :post "/game/make-move"
-    { "gameBoard"      _empty-board
+    { "gameBoard[]"      _empty-board
       "gameTurn"       "first-player"
       "gameMove"       3
       "gameMode"       "singlePlayer"
@@ -65,7 +65,7 @@
 
 (defn _draw-game []
   (request :post "/game/make-move"
-    { "gameBoard"      _draw-board
+    { "gameBoard[]"      _draw-board
       "gameTurn"       "first-player"
       "gameMove"       7
       "gameMode"       "singlePlayer"
@@ -73,7 +73,7 @@
 
 (defn _player1-win []
   (request :post "/game/make-move"
-    { "gameBoard"      _draw-board
+    { "gameBoard[]"      _draw-board
       "gameTurn"       "first-player"
       "gameMove"       8
       "gameMode"       "twoPlayer"
@@ -81,7 +81,7 @@
 
 (defn _player2-win []
   (request :post "/game/make-move"
-    { "gameBoard"      (assoc _draw-board 5 "-")
+    { "gameBoard[]"      (assoc _draw-board 5 "-")
       "gameTurn"       "first-player"
       "gameMove"       5
       "gameMode"       "singlePlayer"

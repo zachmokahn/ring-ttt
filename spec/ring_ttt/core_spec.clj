@@ -58,9 +58,4 @@
               (should= (:body response)
                        (write-str {:game-over false
                                    :board (assoc _empty-board 3 "x" 4 "o")
-                                   :turn :player1}))))))
-
-  (describe "Invalid Route:"
-    (it "renders a 404"
-      (let [response (app (_test-request))]
-      (should= 200 (:status response)))))))
+                                   :turn :player1}))))))))

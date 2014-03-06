@@ -6,8 +6,9 @@
 
   TTT.Board = (function() {
     function Board() {
-      this.updateGameData = __bind(this.updateGameData, this);
+      this.assignGameRules = __bind(this.assignGameRules, this);
       this.startNewGame = __bind(this.startNewGame, this);
+      this.spaces = $(".boardPiece");
       this.view = new TTT.BoardView;
     }
 
@@ -19,22 +20,25 @@
       return $("[data-id='newGame']").on("click", (function(_this) {
         return function() {
           _this.view.reset();
-          _this.updateGameData();
+          _this.assignGameRules();
           return _this.startNewGame();
         };
       })(this));
     };
 
     Board.prototype.startNewGame = function() {
-      return TTT.Service.postNewGame(this.gameRules, (function(_this) {
+      TTT.Service.postNewGame(this.gameRules, (function(_this) {
         return function(newGame) {
-          console.log(newGame);
-          _this.view.sync(newGame);
-          _this.updateGameData(newGame["board"]);
-          _this.assignTurn(newGame);
-          return _this.bindGameBoard();
+          return _this.updateGame(newGame);
         };
       })(this));
+      return this.bindGameBoard();
+    };
+
+    Board.prototype.updateGame = function(gameData) {
+      this.updateBoard(gameData["board"]);
+      this.assignTurn(gameData["turn"]);
+      return this.view.sync(gameData);
     };
 
     Board.prototype.getWinner = function(results) {
@@ -46,40 +50,41 @@
     };
 
     Board.prototype.bindGameBoard = function() {
-      return $(".boardPiece").on("click", (function(_this) {
+      return this.spaces.not(".cross, .circle").on("click", (function(_this) {
         return function(event) {
           var index;
-          $(".boardPiece").unbind();
+          _this.spaces.unbind();
           index = $(event.target).data("index-id");
           return TTT.Service.postMove(_this.gameRules, index, function(response) {
-            _this.updateBoard(response["board"]);
-            _this.assignTurn(response);
-            _this.view.sync(response);
-            if (response["game-over"]) {
-              return _this.getWinner(response);
-            } else {
-              return _this.bindGameBoard();
-            }
+            _this.updateGame(response);
+            return _this.checkGameStatus(response);
           });
         };
       })(this));
+    };
+
+    Board.prototype.checkGameStatus = function(gameData) {
+      if (gameData["game-over"]) {
+        return this.getWinner(gameData);
+      } else {
+        return this.bindGameBoard();
+      }
     };
 
     Board.prototype.updateBoard = function(board) {
       return this.gameRules.gameBoard = board;
     };
 
-    Board.prototype.assignTurn = function(newGame) {
-      if (newGame["turn"] === "player1") {
+    Board.prototype.assignTurn = function(turn) {
+      if (turn === "player1") {
         return this.gameRules.gameTurn = "first-player";
       } else {
         return this.gameRules.gameTurn = "second-player";
       }
     };
 
-    Board.prototype.updateGameData = function(board) {
+    Board.prototype.assignGameRules = function() {
       return this.gameRules = {
-        gameBoard: board,
         gameMode: $("[data-id='gameMode']").val(),
         gameTurn: $("[data-id='gameTurn']").val(),
         gameDifficulty: $("[data-id='gameDifficulty']").val()
@@ -126,12 +131,16 @@
     };
 
     BoardView.prototype._applyClass = function(marker, position) {
-      return $("[data-index-id='" + position + "']").addClass(marker);
+      return this.space(position).addClass(marker);
     };
 
     BoardView.prototype.removeClass = function(position) {
-      $("[data-index-id='" + position + "']").removeClass("circle");
-      return $("[data-index-id='" + position + "']").removeClass("cross");
+      this.space(position).removeClass("circle");
+      return this.space(position).removeClass("cross");
+    };
+
+    BoardView.prototype.space = function(position) {
+      return $("[data-index-id='" + position + "'");
     };
 
     return BoardView;

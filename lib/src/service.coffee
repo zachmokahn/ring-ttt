@@ -13,7 +13,7 @@ TTT.Service =
       data: data
       success: callback
       dataType: 'json'
-      statusCode: { 404 : -> alert("Ummm.... What?")  }
+      # statusCode: { 404 : -> alert("Ummm.... What?")  }
     })
 
 window.TTT.Service = TTT.Service
