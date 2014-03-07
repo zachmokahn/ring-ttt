@@ -11,6 +11,8 @@ describe "Board", ->
       <input data-id='gameTurn' value='turn'/>
       <input data-id='gameDifficulty' value='difficulty'/>
       <div class="boardPiece" data-index-id='0'>
+      <div class="boardPiece circle" data-index-id='1'>
+      <div class="boardPiece cross" data-index-id='2'>
       <button data-id='newGame'/>""")
     board = new TTT.Board
     spyOn(board.view, "reset")
@@ -33,3 +35,7 @@ describe "Board", ->
       newGame()
       $("[data-index-id='0']").click()
       expect(TTT.Service.postMove).toHaveBeenCalled()
+    it "doesn't accept clicks on already take spaces", ->
+      newGame()
+      expect($("[data-index-id='1']")).not.toHandle "click"
+      expect($("[data-index-id='2']")).not.toHandle "click"

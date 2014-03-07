@@ -8,12 +8,11 @@ TTT.Service =
 
   _post: ( url, data, callback) ->
     $.ajax({
-      url : url
       type: "POST"
+      dataType: 'json'
+      url : url
       data: data
       success: callback
-      dataType: 'json'
-      # statusCode: { 404 : -> alert("Ummm.... What?")  }
     })
 
 window.TTT.Service = TTT.Service
