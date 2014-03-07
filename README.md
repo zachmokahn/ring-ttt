@@ -3,7 +3,8 @@
 This is an unbeatable game of tic tac toe with the AI engine built in clojure.
 
 ### Installation & Starting Instructions
-(You are going to need <sup>1</sup>Leiningen, <sup>2</sup>NPM, and <sup>3</sup>Grunt)
+(You are going to need [Leiningen](http://leiningen.org/), [NPM, and
+Grunt](http://thechangelog.com/install-node-js-with-homebrew-on-os-x/))
 
 1. Clone the repository and enter the directory
   ```
@@ -42,5 +43,3 @@ turn, and difficulty.
 ### Game Difficulty
 * Hard: Minimax AI
 * Easy: Random AI
-
-TODO: npm stuff/Grunt stuff
