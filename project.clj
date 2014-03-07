@@ -7,10 +7,10 @@
                  [ttt/ttt "1.0.0"]
                  [ring/ring-core "1.2.1"]
                  [ring/ring-json "0.2.0"]
-                 [ring.middleware.logger "0.4.0"]
-                 [org.clojure/data.json "0.2.4"]
                  [ring/ring-jetty-adapter "1.2.1"]]
   :profiles {:dev {:dependencies [[speclj "3.0.1"]
+                                  [org.clojure/data.json "0.2.4"]
+                                  [ring.middleware.logger "0.4.0"]
                                   [ring-mock "0.1.5"]]}}
   :plugins [[speclj "3.0.1"]
             [lein-ring "0.8.10"]]
