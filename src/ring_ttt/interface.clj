@@ -4,7 +4,7 @@
             [ttt.board :refer :all]
             [ttt.ai :refer :all]))
 
-(declare play-game move-game take-turn)
+(declare play-game move-game)
 
 (defn determine-winner [game-data]
   (let [board (:board game-data)]
@@ -32,13 +32,8 @@
     (game-over-return data)
     (game-active-return data)))
 
-(defn start-game [game-parameters]
-  (let [board (:board game-parameters)
-        turn  (:turn  game-parameters)
-        mode  (:mode  game-parameters)]
-    (if (computer? turn mode)
-      (play-game game-parameters)
-      (return-data board turn))))
+(defn play-game [game-parameters]
+  (game-evaluation (move-game game-parameters)))
 
 (defn computer-move [board turn difficulty]
   (if (= difficulty :hard)
@@ -63,5 +58,10 @@
           (return-data (computer-move next-board opponent difficulty) turn)
           (return-data next-board opponent))))
 
-(defn play-game [game-parameters]
-  (game-evaluation (move-game game-parameters)))
+(defn start-game [game-parameters]
+  (let [board new-board
+        turn  (:turn  game-parameters)
+        mode  (:mode  game-parameters)]
+    (if (computer? turn mode)
+      (play-game (assoc game-parameters :board board))
+      (return-data board turn))))

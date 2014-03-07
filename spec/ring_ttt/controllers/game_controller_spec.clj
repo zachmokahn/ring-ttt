@@ -4,11 +4,6 @@
             [ring-ttt.controllers.game-controller :refer :all]))
 
 (describe "Controller -> Game Spec:"
-  (describe "#parse-params"
-    (it "returns value of provided parameters and request"
-      (should= "data"
-               (parse-params "test" {:params {"test" "data"}}))))
-
   (describe "#game?"
     (it "true if meets criteria for game controller"
       (should= true (game? (_new-game-player1-pvc-hard-post-request))))
@@ -17,7 +12,7 @@
 
   (describe "#new-game"
     (it "sends new game data to the game interface"
-      (with-redefs [parse-new-game-params (fn [_]
+      (with-redefs [new-game-params (fn [_]
                       _new-game-player1-pvc-hard-post-request)]
       (should-invoke ring-ttt.interface/start-game
                       {:with [_new-game-player1-pvc-hard-post-request]}
@@ -25,7 +20,7 @@
 
   (describe "#make-move"
     (it "sends move data to the game interface"
-      (with-redefs [parse-make-move-params (fn [_] _move-game-player1)]
+      (with-redefs [make-move-params (fn [_] _move-game-player1)]
       (should-invoke ring-ttt.interface/play-game {:with [_move-game-player1]}
                      (make-move _test-request)))))
 

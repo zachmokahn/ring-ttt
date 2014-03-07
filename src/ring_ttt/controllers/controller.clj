@@ -9,6 +9,10 @@
 (defn get-uri [request]
   (:uri request))
 
+(defn get-path [request]
+  (let [uri (get-uri request)]
+    (split-uri uri)))
+
 (defn respond-with [page]
   (file-response page {:root ROOT}))
 
